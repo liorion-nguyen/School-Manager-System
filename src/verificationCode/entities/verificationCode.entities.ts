@@ -1,8 +1,4 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
-
-export type VerificationCodeDocument = VerificationCode & Document;
-
 @Schema()
 export class VerificationCode {
   @Prop({ required: true })

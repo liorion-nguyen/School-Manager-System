@@ -2,13 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import * as crypto from 'crypto';
-import { VerificationCode, VerificationCodeDocument } from './entities/verificationCode.entities';
+import { VerificationCode } from './entities/verificationCode.entities';
 import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class VerificationCodeService {
   constructor(
-    @InjectModel(VerificationCode.name) private verificationCodeModel: Model<VerificationCodeDocument>,
+    @InjectModel(VerificationCode.name) private verificationCodeModel: Model<VerificationCode>,
     private userService: UserService
   ) { }
 
