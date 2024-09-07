@@ -12,6 +12,7 @@ import { PusherModule } from './pusher/pusher.module';
 import { PusherService } from './pusher/pusher.service';
 import { AuthModule } from './auth/auth.module';
 import { FirebaseModule } from './firebase/firebase.module';
+import { VerificationCodeModule } from './verificationCode/verification.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -24,6 +25,7 @@ import { FirebaseModule } from './firebase/firebase.module';
     PusherModule,
     AuthModule,
     FirebaseModule,
+    VerificationCodeModule,
     JwtModule.register({
       global: true,
       secret: process.env.JWT_SECRET_KEY,

@@ -9,7 +9,7 @@ import { UserService } from 'src/user/user.service';
 export class VerificationCodeService {
   constructor(
     @InjectModel(VerificationCode.name) private verificationCodeModel: Model<VerificationCode>,
-    // private userService: UserService
+    private userService: UserService
   ) { }
 
   async generateCode(userId: string): Promise<string> {
@@ -38,31 +38,31 @@ export class VerificationCodeService {
   }
 
   async verifyCode(email: string, code: string): Promise<any> {
-    // const user = await this.userService.findOneEmail(email);
-    // const userId = user._id;
+    const user = await this.userService.findOneEmail(email);
+    const userId = user._id;
     
-    // const record = await this.verificationCodeModel.findOne({ userId, code }).exec();
+    const record = await this.verificationCodeModel.findOne({ userId, code }).exec();
 
-    // if (!record) {
-    //   return {
-    //     status: 400,
-    //     message: "The code was wrong"
-    //   }
-    // }
+    if (!record) {
+      return {
+        status: 400,
+        message: "The code was wrong"
+      }
+    }
 
-    // if (record.expiresAt < new Date()) {
-    //   await this.verificationCodeModel.deleteOne({ _id: record._id }).exec();
-    //   return {
-    //     status: 400,
-    //     message: "The code has expired"
-    //   }
-    // }
+    if (record.expiresAt < new Date()) {
+      await this.verificationCodeModel.deleteOne({ _id: record._id }).exec();
+      return {
+        status: 400,
+        message: "The code has expired"
+      }
+    }
 
-    // await this.verificationCodeModel.deleteOne({ _id: record._id }).exec();
-    // return {
-    //   status: 200,
-    //   message: "The code is correct"
-    // }
+    await this.verificationCodeModel.deleteOne({ _id: record._id }).exec();
+    return {
+      status: 200,
+      message: "The code is correct"
+    }
   }
 
   async clearCodes(userId: string): Promise<void> {
