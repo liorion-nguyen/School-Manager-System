@@ -3,11 +3,11 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { VerificationCode, VerificationCodeSchema } from './entities/verificationCode.entities';
 import { VerificationCodeService } from './verificationCode.service';
 import { VerificationCodeController } from './verificationCode.controller';
-// import { UserModule } from 'src/user/user.module'; 
+import { UserModule } from 'src/user/user.module'; 
 
 @Module({
   imports: [
-    // UserModule,
+    UserModule,
     MongooseModule.forFeature([{ name: VerificationCode.name, schema: VerificationCodeSchema }]),
   ],
   providers: [VerificationCodeService], 
