@@ -45,14 +45,14 @@ export class StudentService {
     }
 
     async getStudent(id: string): Promise<any> {
-        const student = await this.studentModel.findById(id);
-        if (!student) {
+        const data = await this.studentModel.findById(id);
+        if (!data) {
             throw new NotFoundException('student not found.');
         }
         return {
             status: 200,
             description: 'Get success.',
-            data: student
+            data: data
         };
     }
 
@@ -70,12 +70,12 @@ export class StudentService {
                 description: 'UserId does not exist.'
             };
         }
-        const res = await this.studentModel.create(student);
-        if (res) {
+        const data = await this.studentModel.create(student);
+        if (data) {
             return {
                 status: 200,
                 description: 'Create Student Success.',
-                data: res
+                data: data
             };
         } else {
             return {
@@ -86,23 +86,23 @@ export class StudentService {
     }
 
     async updateStudent(id: string, student: UpdateStudentDto): Promise<any> {
-        const res = await this.studentModel.findByIdAndUpdate(id, student, {
+        const data = await this.studentModel.findByIdAndUpdate(id, student, {
             new: true,
             runValidators: true,
         });
         return {
             status: 200,
             description: 'Update Student Success.',
-            data: res
+            data: data
         };
     }
 
     async deleteStudent(id: string) {
-        const res = await this.studentModel.findByIdAndDelete(id);
+        const data = await this.studentModel.findByIdAndDelete(id);
         return {
             status: 200,
             description: 'Delete Student Success.',
-            data: res
+            data: data
         };
     }
 }

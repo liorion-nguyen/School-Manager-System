@@ -45,14 +45,14 @@ export class TeacherService {
     }
 
     async getTeacher(id: string): Promise<any> {
-        const teacher = await this.teacherModel.findById(id);
-        if (!teacher) {
+        const data = await this.teacherModel.findById(id);
+        if (!data) {
             throw new NotFoundException('Teacher not found.');
         }
         return {
             status: 200,
             description: 'Get success.',
-            data: Teacher
+            data: data
         };
     }
 
@@ -70,12 +70,12 @@ export class TeacherService {
                 description: 'UserId does not exist.'
             };
         }
-        const res = await this.teacherModel.create(teacher);
-        if (res) {
+        const data = await this.teacherModel.create(teacher);
+        if (data) {
             return {
                 status: 200,
                 description: 'Create Teacher Success.',
-                data: res
+                data: data
             };
         } else {
             return {
@@ -86,23 +86,23 @@ export class TeacherService {
     }
 
     async updateTeacher(id: string, Teacher: UpdateTeacherDto): Promise<any> {
-        const res = await this.teacherModel.findByIdAndUpdate(id, Teacher, {
+        const data = await this.teacherModel.findByIdAndUpdate(id, Teacher, {
             new: true,
             runValidators: true,
         });
         return {
             status: 200,
             description: 'Update Teacher Success.',
-            data: res
+            data: data
         };
     }
 
     async deleteTeacher(id: string) {
-        const res = await this.teacherModel.findByIdAndDelete(id);
+        const data = await this.teacherModel.findByIdAndDelete(id);
         return {
             status: 200,
             description: 'Delete Teacher Success.',
-            data: res
+            data: data
         };
     }
 }

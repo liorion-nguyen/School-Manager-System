@@ -8,7 +8,7 @@ import { CreateUserDto, UpdateUserDto } from './dto/user.dto';
 @Injectable()
 export class UserService {
     constructor(
-        @InjectModel(User.name) private userModel: mongoose.Model<User>,
+        @InjectModel(User.name) private userModel: mongoose.Model<User>
     ) { }
 
     async getAllUser(pageOption: {
@@ -190,8 +190,8 @@ export class UserService {
             10,
         );
         user.password = hash;
+
         const res = await this.userModel.create(user);
-        
         if (res) {
             return {
                 status: 200,
