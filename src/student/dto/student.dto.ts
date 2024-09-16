@@ -17,7 +17,7 @@ export class CreateStudentDto {
 
   @IsNotEmpty()
   @IsString()
-  listScores: Score[];
+  listScores?: Score[];
 }
 
 export class UpdateStudentDto {
