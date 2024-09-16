@@ -15,7 +15,7 @@ export class CreateStudentDto {
   @IsString()
   contactParents: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   listScores?: Score[];
 }
