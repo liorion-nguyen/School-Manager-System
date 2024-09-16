@@ -1,26 +1,22 @@
 import { Type } from 'class-transformer';
 import { IsNotEmpty, IsString, IsOptional, IsDate } from 'class-validator';
 
-interface Score {
-    subjectId: string,
-    score: number
-};
 
-export class CreateStudentDto {
+export class CreateTeacherDto {
   @IsNotEmpty()
   @IsString()
   userId: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  contactParents: string;
+  subjectId?: string;
 
   @IsOptional()
   @IsString()
-  listScores?: Score[];
+  homeroomId?: string;
 }
 
-export class UpdateStudentDto {
+export class UpdateTeacherDto {
   @IsOptional()
   @IsString()
   id?: string;
@@ -31,11 +27,11 @@ export class UpdateStudentDto {
 
   @IsOptional()
   @IsString()
-  contactParents?: string;
+  subjectId?: string;
 
   @IsOptional()
   @IsString()
-  listScores?: Score[];
+  homeroomId?: string;
 
   @IsOptional()
   @IsDate()

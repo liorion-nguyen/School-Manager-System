@@ -14,6 +14,7 @@ import { AuthModule } from './auth/auth.module';
 import { FirebaseModule } from './firebase/firebase.module';
 import { VerificationCodeModule } from './verificationCode/verification.module';
 import { StudentModule } from './student/student.module';
+import { TeacherModule } from './teacher/teacher.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -28,6 +29,7 @@ import { StudentModule } from './student/student.module';
     FirebaseModule,
     VerificationCodeModule,
     StudentModule,
+    TeacherModule,
     JwtModule.register({
       global: true,
       secret: process.env.JWT_SECRET_KEY,
