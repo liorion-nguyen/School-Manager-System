@@ -35,7 +35,7 @@ export class FirebaseService {
     return this.storage;
   }
 
-  async UploadImage(file: Express.Multer.File): Promise<string> {
+  async UploadImage(file: Express.Multer.File): Promise<any> {
     const storage = await this.getStorage();
     const bucket = storage.bucket();
     const filename = `${Date.now()}_${file.originalname}`;
@@ -65,7 +65,11 @@ export class FirebaseService {
       });
       stream.end(file.buffer);
     });
-    return filename;
+    return {
+      status: 200,
+      data: `https://firebasestorage.googleapis.com/v0/b/${process.env.URL_Bucket_Firebase}/o/${filename}?alt=media`,
+      description: "The file was uploaded successfully"
+    };
   }
 
   async DeleteImage(imageUrl: string): Promise<void> {

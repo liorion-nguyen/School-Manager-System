@@ -35,13 +35,13 @@ export class MailerService {
                 } else {
                     return {
                         status: 404,
-                        message: "Email has not been authenticated"
+                        description: "Email has not been authenticated"
                     }
                 }
             } else {
                 return {
                     status: 400,
-                    message: "Email or id is required"
+                    description: "Email or id is required"
                 }
             }
         }
@@ -55,13 +55,13 @@ export class MailerService {
             await this.transporter.sendMail(mailOptions);
             return {
                 status: 200,
-                message: `Content has been sent to email ${email}`
+                description: `Content has been sent to email ${email}`
             }
         }
         else {
             return {
                 status: 404,
-                message: "You must submit content"
+                description: "You must submit content"
             }
         }
     }

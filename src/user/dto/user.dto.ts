@@ -2,9 +2,8 @@ import { Type } from 'class-transformer';
 import { IsNotEmpty, IsString, IsOptional, IsEnum, IsEmail, IsPhoneNumber, IsDate, IsBoolean, IsUrl } from 'class-validator';
 
 enum UserRole {
-  PATIENT = 'Parient',
-  DOCTOR = 'Doctor',
-  RECEPTION = 'Receptionist',
+  STUDENT = 'Student',
+  TEACHER = 'Teacher',
   ADMIN = 'Admin',
 }
 
@@ -52,10 +51,6 @@ export class CreateUserDto {
   address?: string;
 
   @IsOptional()
-  @IsString()
-  cccdNumber?: string;
-
-  @IsOptional()
   @IsBoolean()
   isActive?: boolean;
 
@@ -66,18 +61,6 @@ export class CreateUserDto {
   @IsOptional()
   @IsDate()
   lastLogin?: Date;
-
-  @IsOptional()
-  @IsString()
-  emergencyContact?: string; // Thông tin liên lạc của người quan trọng
-
-  @IsOptional()
-  @IsString()
-  insuranceNumber?: string; // Số bảo hiểm y tế
-
-  @IsOptional()
-  @IsString()
-  accessToken: string;
 
   @IsOptional()
   @IsString()
@@ -137,10 +120,6 @@ export class UpdateUserDto {
   address?: string;
 
   @IsOptional()
-  @IsString()
-  cccdNumber?: string;
-
-  @IsOptional()
   @IsBoolean()
   isActive?: boolean;
 
@@ -151,15 +130,7 @@ export class UpdateUserDto {
   @IsOptional()
   @IsDate()
   lastLogin?: Date;
-
-  @IsOptional()
-  @IsString()
-  emergencyContact?: string;
-
-  @IsOptional()
-  @IsString()
-  insuranceNumber?: string;
-
+  
   @IsOptional()
   @IsString()
   refreshToken: string;

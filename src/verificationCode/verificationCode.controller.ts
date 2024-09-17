@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Param } from '@nestjs/common';
+import { Controller, Post, Body, Param, Get } from '@nestjs/common';
 import { VerificationCodeService } from './verificationCode.service';
 
 @Controller('verification-code')
@@ -13,7 +13,6 @@ export class VerificationCodeController {
 
   @Post('verify')
   async verifyCode(@Body('email') email: string, @Body('code') code: string) {
-    const isValid = await this.verificationCodeService.verifyCode(email, code);
-    return { isValid };
+    return await this.verificationCodeService.verifyCode(email, code);
   }
 }

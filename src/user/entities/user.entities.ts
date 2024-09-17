@@ -2,9 +2,8 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 enum UserRole {
-    PATIENT = 'Parient',
-    DOCTOR = 'Doctor',
-    RECEPTION = 'Receptionist',
+    STUDENT = 'Student',
+    TEACHER = 'Teacher',
     ADMIN = 'Admin',
 }
 
@@ -46,22 +45,13 @@ export class User extends Document {
     address: string;
 
     @Prop({ default: "" })   
-    cccdNumber: string;
-
-    @Prop({ default: "" })   
     profileImage: string;
-
-    @Prop({ default: "" })   
-    emergencyContact: string;
 
     @Prop({ default: true })
     isActive: boolean;
 
     @Prop({ default: null }) 
     lastLogin: Date;
-
-    @Prop({ default: "" })   
-    insuranceNumber: string;
 
     @Prop({ default: "" })  
     refreshToken: string;

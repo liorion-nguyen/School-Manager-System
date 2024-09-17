@@ -13,6 +13,7 @@ import { PusherService } from './pusher/pusher.service';
 import { AuthModule } from './auth/auth.module';
 import { FirebaseModule } from './firebase/firebase.module';
 import { VerificationCodeModule } from './verificationCode/verification.module';
+import { PermissionModule } from './permission/permission.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -25,6 +26,7 @@ import { VerificationCodeModule } from './verificationCode/verification.module';
     PusherModule,
     AuthModule,
     FirebaseModule,
+    PermissionModule,
     VerificationCodeModule,
     JwtModule.register({
       global: true,
