@@ -2,8 +2,6 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './user/entities/user.entities';
 import { JwtModule } from '@nestjs/jwt';
 import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
@@ -14,6 +12,10 @@ import { AuthModule } from './auth/auth.module';
 import { FirebaseModule } from './firebase/firebase.module';
 import { VerificationCodeModule } from './verificationCode/verification.module';
 import { PermissionModule } from './permission/permission.module';
+import { TeacherModule } from './teacher/teacher.module';
+import { ClassesModule } from './classes/classes.module';
+import { SubjectModule } from './subject/subject.module';
+import { StudentModule } from './student/student.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -28,6 +30,10 @@ import { PermissionModule } from './permission/permission.module';
     FirebaseModule,
     PermissionModule,
     VerificationCodeModule,
+    TeacherModule,
+    StudentModule,
+    ClassesModule,
+    SubjectModule,
     JwtModule.register({
       global: true,
       secret: process.env.JWT_SECRET_KEY,
