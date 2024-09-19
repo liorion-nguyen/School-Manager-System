@@ -29,12 +29,11 @@ export class UserController {
             show?: number,
             search?: string,
         }
-    ): Promise<{ data: User[], count: number }> {
-
+    ): Promise<any> {
         if (pageOption.page && pageOption.page < 1) {
             throw new BadRequestException('Invalid page number. Page number must be greater than or equal to 1.');
         }
-        return this.userService.getAllUser(pageOption);
+        return this.userService.getAllUser(pageOption, "");
     }
 
     @Get("/search")
@@ -43,36 +42,21 @@ export class UserController {
       show?: number,
       search?: string,
     }): Promise<{ data: User[], count: number }> {
-      return this.userService.findSearch(pageOption);
-    }
-
-    @Get("/cccd/:id")
-    async findCCCD(@Param('id') id: string): Promise<any> {
-      return this.userService.findCCCD(id);
-    }
-
-    @Get("/profileImage/:id")
-    async findProfileImage(@Param('id') id: string): Promise<any> {
-      return this.userService.findProfileImage(id);
+      return this.userService.getAllUser(pageOption, "search");
     }
 
     @Get(':id')
     async getUser(
         @Param('id') id: string,
-    ): Promise<User> {
-        return this.userService.getUser(id);
+    ): Promise<any> {
+        return this.userService.getUserById(id);
     }
-    
+
     @Post()
     async createUser(@Body() user: CreateUserDto): Promise<User> {
         return this.userService.createUser(user);
     }
-
-    @Put(':id')
-    async update(@Param('id') id: string, @Body() user: UpdateUserDto): Promise<User> {
-        return this.userService.updateUser(id, user);
-    }
-
+    
     @Delete(':id')
     async deleteUser(
         @Param('id')
@@ -81,8 +65,13 @@ export class UserController {
         return this.userService.deleteUser(id);
     }
 
-    @Post('updatePassword')
-    async updatePassword(@Body('email') email: string, @Body('password') password: string): Promise<any> {
+    @Put(':id')
+    async update(@Param('id') id: string, @Body() user: UpdateUserDto): Promise<User> {
+        return this.userService.updateUser(id, user);
+    }
+
+    @Put('updatePassword/:email')
+    async updatePassword(@Param('email') email: string, @Body('password') password: string): Promise<any> {
         return this.userService.updatePassword(email, password);
     }
 }

@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import * as crypto from 'crypto';
 import { VerificationCode } from './entities/verificationCode.entities';
 import { UserService } from 'src/user/user.service';
+import Tesseract from 'tesseract.js';
 
 @Injectable()
 export class VerificationCodeService {
@@ -46,7 +47,7 @@ export class VerificationCodeService {
     if (!record) {
       return {
         status: 400,
-        message: "The code was wrong"
+        description: "The code was wrong"
       }
     }
 
@@ -54,14 +55,14 @@ export class VerificationCodeService {
       await this.verificationCodeModel.deleteOne({ _id: record._id }).exec();
       return {
         status: 400,
-        message: "The code has expired"
+        description: "The code has expired"
       }
     }
 
     await this.verificationCodeModel.deleteOne({ _id: record._id }).exec();
     return {
       status: 200,
-      message: "The code is correct"
+      description: "The code is correct"
     }
   }
 

@@ -9,7 +9,6 @@ import { UserModule } from "src/user/user.module";
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Student.name, schema: StudentSchema }]),
-    forwardRef(() => AuthModule),
     forwardRef(() => UserModule),
   ],
   controllers: [StudentController],

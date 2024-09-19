@@ -3,6 +3,8 @@ import { UserController } from './user.controller';
 import { UserService } from './user.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserSchema } from './entities/user.entities';
+import { StudentModule } from 'src/student/student.module';
+import { TeacherModule } from 'src/teacher/teacher.module';
 
 @Module({
   imports: [
@@ -11,7 +13,9 @@ import { UserSchema } from './entities/user.entities';
         name: 'User',
         schema: UserSchema,
       },
-    ])
+    ]),
+    forwardRef(() => StudentModule),
+    forwardRef(() => TeacherModule),
   ],
   controllers: [UserController],
   providers: [UserService],

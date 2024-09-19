@@ -15,14 +15,14 @@ export class AuthService {
   ) { }
 
   async validateUser(username: string, password: string): Promise<any> {
-    let user = await this.userService.findOne(username);
+    let user = await this.userService.findOneUsername(username);
     if (!user) {
       user = await this.userService.findOneEmail(username);
     }
-    
+
     if (!user) {
       return {
-        status: 401,
+        status: 404,
         description: 'Invalid username or password'
       }
     }
@@ -30,7 +30,7 @@ export class AuthService {
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       return {
-        status: 401,
+        status: 404,
         description: 'Invalid username or password'
       }
     }
@@ -55,11 +55,15 @@ export class AuthService {
   async refreshToken(refreshToken: string) {
     try {
       const payload = this.jwtService.verify(refreshToken);
-      const user = await this.userService.getUserById(payload.sub);
+      const currentTime = Math.floor(Date.now() / 1000);
+
+      if (payload.exp <= currentTime) return {status: 404, description: 'Token has expired.'}
+      const data = await this.userService.getUserById(payload.sub);
+      const user = data.data;
 
       if (!user || user.refreshToken !== refreshToken) {
         return {
-          status: 401,
+          status: 404,
           description: 'Invalid refresh token'
         };
       }
@@ -76,33 +80,33 @@ export class AuthService {
       };
     }
   }
-  
+
   async forgotPassword(email: string) {
     const user = await this.userService.findOneEmail(email);
-        if (!user) {
-            return {
-                status: 404,
-                description: "User not found."
-            };
-        }
+    if (!user) {
+      return {
+        status: 404,
+        description: "User not found."
+      };
+    }
 
-        const code = await this.verificationCodeService.generateCode(user._id);
+    const code = await this.verificationCodeService.generateCode(user._id);
 
-        const sendEmail = await this.mailerService.sendEmail({
-            email: email,
-            content: `Your verification code is: ${code}`
-        });
+    const sendEmail = await this.mailerService.sendEmail({
+      email: email,
+      content: `Your verification code is: ${code} in 5 minutes.`
+    });
 
-        if (sendEmail.status === 200) {
-            return {
-                status: 200,
-                description: "Verification code sent to email."
-            };
-        } else {
-            return {
-                status: 404,
-                description: "Failed to send email."
-            };
-        }
+    if (sendEmail.status === 200) {
+      return {
+        status: 200,
+        description: "Verification code sent to email."
+      };
+    } else {
+      return {
+        status: 404,
+        description: "Failed to send email."
+      };
+    }
   }
 }

@@ -18,10 +18,10 @@ export class AuthController {
         const user = req.user;
         if (user.isActive) {
             const tokens = await this.authService.generateTokens(user);
-            return { status: 201, data: { ...tokens, user }, description: "Log in successfully." };
+            return { status: 200, data: { ...tokens, user }, description: "Log in successfully." };
         } else {
             return {
-                status: 401,
+                status: 404,
                 description: "Account or password is incorrect."
             }
         }
@@ -31,7 +31,7 @@ export class AuthController {
     async refreshToken(@Body() refreshToken: any) {
         if (!refreshToken) {
             return {
-                status: 401,
+                status: 404,
                 description: "Refresh token is required"
             }
         }
