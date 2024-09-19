@@ -12,7 +12,7 @@ import { LocalAuthGuard } from './guard/local-auth.guard';
 export class AuthController {
     constructor(private readonly authService: AuthService) { }
 
-    // @UseGuards(LocalAuthGuard)
+    @UseGuards(LocalAuthGuard)
     @Post('login')
     async login(@Request() req): Promise<any> {
         const user = req.user;
