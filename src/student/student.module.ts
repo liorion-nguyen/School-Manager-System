@@ -10,9 +10,10 @@ import { UserModule } from "src/user/user.module";
   imports: [
     MongooseModule.forFeature([{ name: Student.name, schema: StudentSchema }]),
     forwardRef(() => UserModule),
+    // UserModule
   ],
   controllers: [StudentController],
   providers: [StudentService],
-  exports: [StudentService],
+  exports: [StudentService, MongooseModule],
 })
 export class StudentModule {}

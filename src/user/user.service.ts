@@ -4,11 +4,15 @@ import * as mongoose from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import { User } from './entities/user.entities';
 import { CreateUserDto, UpdateUserDto } from './dto/user.dto';
+import { Teacher } from 'src/teacher/entities/teacher.entities';
+import { Student } from 'src/student/entities/student.entities';
 
 @Injectable()
 export class UserService {
     constructor(
-        @InjectModel(User.name) private userModel: mongoose.Model<User>
+        @InjectModel(User.name) private userModel: mongoose.Model<User>,
+        @InjectModel(Teacher.name) private teacherModel: mongoose.Model<Teacher>,
+        @InjectModel(Student.name) private studentModel: mongoose.Model<Student>,
     ) { }
 
     async getAllUser(pageOption: {
