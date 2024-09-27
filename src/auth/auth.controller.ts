@@ -27,6 +27,11 @@ export class AuthController {
         }
     }
 
+    @Post('test')
+    async test(): Promise<any> {
+        return "Correct!"
+    }
+
     @Post('refresh-token')
     async refreshToken(@Body() refreshToken: any) {
         if (!refreshToken) {
