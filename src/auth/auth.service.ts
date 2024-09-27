@@ -19,7 +19,6 @@ export class AuthService {
     if (!user) {
       user = await this.userService.findOneEmail(username);
     }
-
     if (!user) {
       return {
         status: 404,
@@ -35,7 +34,6 @@ export class AuthService {
       }
     }
     const { password: userPassword, ...userData } = user._doc;
-
     return userData;
   }
 

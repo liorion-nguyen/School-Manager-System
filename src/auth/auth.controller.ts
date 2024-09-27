@@ -29,8 +29,16 @@ export class AuthController {
         }
     }
 
+    @Get('login')
+    async logintest(@Query() pageOption: {
+        username?: string,
+        password?: string
+    }): Promise<any> {
+       return this.authService.validateUser(pageOption.username, pageOption.password)
+    }
+
     @Get('test')
-    async test( @Query() pageOption: {
+    async test(@Query() pageOption: {
         username?: string,
         password?: string
     }): Promise<any> {
