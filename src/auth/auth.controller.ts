@@ -3,7 +3,9 @@ import {
     Post,
     UseGuards,
     Request,
-    Body
+    Body,
+    Get,
+    Query
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guard/local-auth.guard';
@@ -27,11 +29,14 @@ export class AuthController {
         }
     }
 
-    @Post('test')
-    async test(@Body('username') username: string, @Body('password') password: string): Promise<any> {
+    @Get('test')
+    async test( @Query() pageOption: {
+        username?: string,
+        password?: string
+    }): Promise<any> {
         return {
-            username: username,
-            password: password
+            username: pageOption.username,
+            password: pageOption.password
         };
     }
 
