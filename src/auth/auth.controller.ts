@@ -28,8 +28,11 @@ export class AuthController {
     }
 
     @Post('test')
-    async test(): Promise<any> {
-        return "Correct!"
+    async test(@Body('username') username: string, @Body('password') password: string): Promise<any> {
+        return {
+            username: username,
+            password: password
+        };
     }
 
     @Post('refresh-token')
