@@ -59,8 +59,12 @@ export class AuthController {
         return this.authService.refreshToken(refreshToken.refreshToken);
     }
 
-    @Post('forgotpassword/email')
+    @Post('forgotpassword')
     async forgotPassword(@Body('email') email: string): Promise<any> {
         return this.authService.forgotPassword(email);
+    }
+    @Post('confirmcode')
+    async confirmCode(@Body('email') email: string, @Body('code') code: string, @Body('password') password: string): Promise<any> {
+        return this.authService.confirmCode(email, code, password);
     }
 }

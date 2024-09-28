@@ -107,4 +107,28 @@ export class AuthService {
       };
     }
   }
+
+  async confirmCode(email: string, code: string, password: string) {
+    const result_confirmCode = await this.verificationCodeService.verifyCode(email, code)
+    if(result_confirmCode.status === 200) {
+
+      const resutl_updatePassword = await this.userService.updatePassword(email, password);
+
+      if(resutl_updatePassword.status === 200) {
+        return {
+          data: resutl_updatePassword.data,
+          description: resutl_updatePassword.description
+        }
+      } else {
+        return {
+          description: resutl_updatePassword.description
+        }
+      }
+
+    } else {
+      return {
+        description: result_confirmCode.description
+      }
+    }
+  }
 }
